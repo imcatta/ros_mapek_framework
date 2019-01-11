@@ -1,0 +1,14 @@
+<launch>
+    <node name="master" pkg="mapek_framework_demo" type="master.py" />
+    <node name="ticker" pkg="mapek_framework_demo" type="ticker.py" />
+    <node name="slave0" pkg="mapek_framework_demo" type="slave.py" args="0"/>
+    <node name="slave1" pkg="mapek_framework_demo" type="slave.py" args="1"/>
+    <node name="slave2" pkg="mapek_framework_demo" type="slave.py" args="2"/>
+    <node name="slave3" pkg="mapek_framework_demo" type="slave.py" args="3"/>
+    <node name="slave4" pkg="mapek_framework_demo" type="slave.py" args="4"/>
+    <node name="slave5" pkg="mapek_framework_demo" type="slave.py" args="5"/>
+    <node name="slave6" pkg="mapek_framework_demo" type="slave.py" args="6"/>
+    <node name="slave7" pkg="mapek_framework_demo" type="slave.py" args="7"/>
+    <node name="slave8" pkg="mapek_framework_demo" type="slave.py" args="8"/>
+    <node name="slave9" pkg="mapek_framework_demo" type="slave.py" args="9"/>
+</launch>
