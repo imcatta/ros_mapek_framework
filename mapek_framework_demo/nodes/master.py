@@ -41,10 +41,8 @@ class MasterGroup(Group):
     
 
 def main():
-    master = MasterGroup()
-    rospy.init_node('master')
-    rospy.spin()
-
+    master = MasterGroup('master')
+    master.spin()
 
 if __name__ == '__main__':
     try:

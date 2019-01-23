@@ -57,16 +57,14 @@ class SlaveGroup(Group):
     elements = [MyMonitorElement, MyExecuteElement]
     managed_system = LightPoleMS()
 
-    def __init__(self, group_name):
-        super(SlaveGroup, self).__init__()
+    def __init__(self, group_name, node_name, **kwargs):
+        super(SlaveGroup, self).__init__(node_name, **kwargs)
         self.knowledge['group_name'] = group_name
 
 def main():
-    rospy.init_node('slave', anonymous=True)
-    argv = rospy.myargv(argv=sys.argv)
-    name = argv[1]
-    slave = SlaveGroup(name)
-    rospy.spin()
+    name = rospy.myargv(argv=sys.argv)[1]
+    slave = SlaveGroup(name, 'slave', anonymous=True)
+    slave.spin()
 
 
 if __name__ == '__main__':
