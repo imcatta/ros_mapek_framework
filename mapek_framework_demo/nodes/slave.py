@@ -2,7 +2,7 @@
 import random
 import sys
 import rospy
-from std_msgs.msg import String
+from std_msgs.msg import Empty, String
 from mapek_framework import Group, MonitorElement, ExecuteElement, ManagedSystem, Interaction
 
 class LightPoleMS(ManagedSystem):
@@ -28,7 +28,7 @@ class LightPoleMS(ManagedSystem):
 class MyMonitorElement(MonitorElement):
 
     input_interactions = [
-        Interaction('tick', String)
+        Interaction('tick', Empty)
     ]
     output_interactions = [
         Interaction('light_status', String)
