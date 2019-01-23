@@ -1,4 +1,9 @@
 #!/usr/bin/env python
+"""
+group.py
+====================================
+lorem ipsum fooo
+"""
 import rospy
 
 class Group(object):
