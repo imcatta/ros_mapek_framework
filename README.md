@@ -1,6 +1,8 @@
 # ROS MAPE-K Framework
 
 [![Build Status](https://travis-ci.org/imcatta/ros_mapek_framework.svg?branch=master)](https://travis-ci.org/imcatta/ros_mapek_framework)
+[![Documentation Status](https://readthedocs.org/projects/ros-mape-k-framework/badge/?version=latest)](https://ros-mape-k-framework.readthedocs.io/en/latest/?badge=latest)
+
 
 ### How to install
 0. [Install ROS](http://wiki.ros.org/melodic/Installation). The full version is required. 
