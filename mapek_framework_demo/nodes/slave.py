@@ -3,7 +3,7 @@ import random
 import sys
 import rospy
 from std_msgs.msg import String
-from mapek_framework import Group, MapeElement, ManagedSystem, Interaction
+from mapek_framework import Group, MonitorElement, ExecuteElement, ManagedSystem, Interaction
 
 class LightPoleMS(ManagedSystem):
 
@@ -25,7 +25,7 @@ class LightPoleMS(ManagedSystem):
         else:
             rospy.loginfo('BROKEN')
 
-class MonitorElement(MapeElement):
+class MyMonitorElement(MonitorElement):
 
     input_interactions = [
         Interaction('tick', String)
@@ -34,18 +34,18 @@ class MonitorElement(MapeElement):
         Interaction('light_status', String)
     ]
 
-    def on_message_received(self, interaction, message):
+    def on_interaction_received(self, interaction, payload):
         status = 'ok' if self.managed_system.is_working() else 'ko'
-        self.send_message('light_status', '%s %s' % (self.knowledge['group_name'], status))
+        self.send_interaction('light_status', '%s %s' % (self.knowledge['group_name'], status))
 
-class ExecuteElement(MapeElement):
+class MyExecuteElement(ExecuteElement):
 
     input_interactions = [
         Interaction('switch_light', String)
     ]
     
-    def on_message_received(self, interaction, message):
-        light, status = message.data.split(' ')
+    def on_interaction_received(self, interaction, payload):
+        light, status = payload.data.split(' ')
         if light == str(self.knowledge['group_name']):
             if status == 'on':
                 self.managed_system.turn_on()
@@ -54,7 +54,7 @@ class ExecuteElement(MapeElement):
 
 
 class SlaveGroup(Group):
-    elements = [MonitorElement, ExecuteElement]
+    elements = [MyMonitorElement, MyExecuteElement]
     managed_system = LightPoleMS()
 
     def __init__(self, group_name):
