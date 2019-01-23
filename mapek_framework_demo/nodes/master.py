@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 import rospy
 from std_msgs.msg import String
-from mapek_framework import Group, MapeElement, Interaction
+from mapek_framework import Group, AnalyzeElement, PlanElement, Interaction
 
-class AnalyzeElement(MapeElement):
+class MyAnalyzeElement(AnalyzeElement):
 
     input_interactions = [
         Interaction('light_status', String)
@@ -12,12 +12,12 @@ class AnalyzeElement(MapeElement):
         Interaction('master_analyze_plan', String)
     ]
 
-    def on_message_received(self, interaction, message):
-        light, status = message.data.split(' ')
+    def on_interaction_received(self, interaction, payload):
+        light, status = payload.data.split(' ')
         self.knowledge[int(light)] = status  
-        self.send_message('master_analyze_plan', light)
+        self.send_interaction('master_analyze_plan', light)
 
-class PlanElement(MapeElement):
+class MyPlanElement(PlanElement):
 
     input_interactions = [
         Interaction('master_analyze_plan', String)
@@ -26,18 +26,18 @@ class PlanElement(MapeElement):
         Interaction('switch_light', String)
     ]
 
-    def on_message_received(self, interaction, message):
-        light = int(message.data)
+    def on_interaction_received(self, interaction, payload):
+        light = int(payload.data)
         if light % 2 == 0:
-            self.send_message('switch_light', '%d on' % light)
+            self.send_interaction('switch_light', '%d on' % light)
         elif light != 0 and self.knowledge.get(light - 1, 'ko') == 'ko':
-            self.send_message('switch_light', '%d on' % light)
+            self.send_interaction('switch_light', '%d on' % light)
         else:
-            self.send_message('switch_light', '%d off' % light)
+            self.send_interaction('switch_light', '%d off' % light)
 
 
 class MasterGroup(Group):
-    elements = [AnalyzeElement, PlanElement]
+    elements = [MyAnalyzeElement, MyPlanElement]
     
 
 def main():

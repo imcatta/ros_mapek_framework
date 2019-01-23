@@ -1,13 +1,11 @@
 #!/usr/bin/env python
+from abc import ABCMeta, abstractmethod
 import rospy
+from .interaction import Interaction
 
-class Interaction(object):
+class _MapeElement(object):
 
-    def __init__(self, name, data_class):
-        self.name = name
-        self.data_class = data_class
-
-class MapeElement(object):
+    __metaclass__ = ABCMeta
 
     input_interactions = []
     output_interactions = []
@@ -18,15 +16,21 @@ class MapeElement(object):
 
         for interaction in self.input_interactions:
             rospy.Subscriber(interaction.name, interaction.data_class, 
-                    lambda m: self.on_message_received(interaction.name, m))
+                    lambda p: self.on_interaction_received(interaction.name, p))
 
         self.output_topics = {}
         for interaction in self.output_interactions:
-            self.output_topics[interaction.name] = rospy.Publisher(interaction.name, interaction.data_class, queue_size=10)
-        
+            self.output_topics[interaction.name] = rospy.Publisher(interaction.name, interaction.data_class, queue_size=10)        
 
-    def on_message_received(self, interaction, message):
+    @abstractmethod
+    def on_interaction_received(self, interaction, payload):
         pass
     
-    def send_message(self, interaction, message):
-        self.output_topics[interaction].publish(message)
+    def send_interaction(self, interaction, payload):
+        self.output_topics[interaction].publish(payload)
+
+
+MonitorElement = _MapeElement
+AnalyzeElement = _MapeElement
+PlanElement = _MapeElement
+ExecuteElement = _MapeElement
