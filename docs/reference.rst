@@ -1,5 +1,5 @@
-Reference
-=========
+Docstrings
+==========
 
 .. automodule:: mapek_framework.mape_element
     :members:
