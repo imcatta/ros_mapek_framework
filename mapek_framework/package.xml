@@ -9,13 +9,19 @@
   <author email="a.cattaneo20@studenti.unibg.it">Andrea Cattaneo</author>
  
   <buildtool_depend>catkin</buildtool_depend>
+  
   <build_depend>rospy</build_depend>
   <build_depend>std_msgs</build_depend>
   <build_depend>rostest</build_depend>
+
   <build_export_depend>rospy</build_export_depend>
   <build_export_depend>std_msgs</build_export_depend>
+
   <exec_depend>rospy</exec_depend>
   <exec_depend>std_msgs</exec_depend>
+
+  <test_depend>rospy</test_depend>
+  <test_depend>std_msgs</test_depend>  
   <test_depend>python-mock</test_depend>
   
   <export>
