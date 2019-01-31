@@ -11,7 +11,7 @@ env:
 
 install:
   - git clone --quiet --depth 1 https://github.com/ros-industrial/industrial_ci.git .ci
-  - pip install codecov nose
+  - pip install codecov nose --ignore-installed urllib3
 script:
   - .ci/travis.sh
 after_script:
