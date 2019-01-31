@@ -199,4 +199,6 @@ catkin_install_python(
 # endif()
 
 ## Add folders to be run by python nosetests
-# catkin_add_nosetests(test)
+if (CATKIN_ENABLE_TESTING)
+  catkin_add_nosetests(src/test_mapek_framework/run_tests.py)
+endif()
