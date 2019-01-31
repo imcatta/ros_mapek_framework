@@ -7,7 +7,10 @@ services:
 
 env:
   global:
-    - AFTER_SCRIPT='pip install --user codecov nose && cd mapek_framework/src && nosetests --cover-package=mapek_framework --with-coverage && codecov'
+    - AFTER_SCRIPT='pip install --user codecov nose &&
+      cd /tmp &&
+      nosetests --cover-package=mapek_framework --with-coverage $TARGET_REPO_PATH/mapek_framework/src &&
+      codecov'
   matrix:
     - ROS_DISTRO="indigo"
     - ROS_DISTRO="kinetic"
