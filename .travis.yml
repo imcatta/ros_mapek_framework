@@ -6,6 +6,8 @@ services:
   - docker
 
 env:
+  global:
+    - AFTER_SCRIPT='pip install --user codecov nose && cd mapek_framework/src && nosetests --cover-package=mapek_framework --with-coverage && codecov'
   matrix:
     - ROS_DISTRO="indigo"
     - ROS_DISTRO="kinetic"
@@ -18,7 +20,3 @@ install:
 
 script:
   - .ci/travis.sh
-
-after_script:
-  - cd mapek_framework/src && nosetests --cover-package=mapek_framework --with-coverage && codecov
-
