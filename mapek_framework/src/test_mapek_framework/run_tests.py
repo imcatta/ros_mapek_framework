@@ -5,6 +5,7 @@ from .test_group import GroupTestCase
 from .test_interaction import InteractionTestCase
 from .test_managed_system import ManagedSystemTestCase
 from .test_mape_element import MapeElementTestCase
+from .test_ticker import TickerTestCase
 
 
 if __name__ == '__main__':
@@ -16,3 +17,5 @@ if __name__ == '__main__':
                     'test_managed_system_mapek_framework', ManagedSystemTestCase)
     rosunit.unitrun('test_mapek_framework',
                     'test_mape_element_mapek_framework', MapeElementTestCase)
+    rosunit.unitrun('test_mapek_framework',
+                    'test_ticker_mapek_framework', TickerTestCase)
