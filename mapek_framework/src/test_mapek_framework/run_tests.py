@@ -5,4 +5,5 @@ from .test_group import GroupTestCase
 
 
 if __name__ == '__main__':
-    pass
+    rosunit.unitrun('test_mapek_framework',
+                    'test_group_mapek_framework', GroupTestCase)
