@@ -7,6 +7,7 @@ services:
 
 env:
   global:
+    -CODECOV_TOKEN='$CODECOV_TOKEN'
     - AFTER_SCRIPT='pip install codecov nose &&
       cd /tmp &&
       nosetests --cover-package=mapek_framework --with-coverage --cover-xml --cover-xml-file /tmp/a.xml $TARGET_REPO_PATH/mapek_framework/src &&
