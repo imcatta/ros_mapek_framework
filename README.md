@@ -1,6 +1,7 @@
 # ROS MAPE-K Framework
 
 [![Build Status](https://travis-ci.org/imcatta/ros_mapek_framework.svg?branch=master)](https://travis-ci.org/imcatta/ros_mapek_framework)
+[![codecov](https://codecov.io/gh/imcatta/ros_mapek_framework/branch/master/graph/badge.svg)](https://codecov.io/gh/imcatta/ros_mapek_framework)
 [![Documentation Status](https://readthedocs.org/projects/ros-mape-k-framework/badge/?version=latest)](https://ros-mape-k-framework.readthedocs.io/en/latest/?badge=latest)
 
 A simple framework that help developers build [ROS](http://ros.org) applications based on the MAPE-K pattern. Full documentation is available at [ros-mape-k-framework.readthedocs.io](https://ros-mape-k-framework.readthedocs.io).

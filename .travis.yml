@@ -1,4 +1,7 @@
 language: generic
+
+dist: xenial
+
 services:
   - docker
 
@@ -7,9 +10,15 @@ env:
     - ROS_DISTRO="indigo"
     - ROS_DISTRO="kinetic"
     - ROS_DISTRO="lunar"
-    - ROS_DISTRO="melodic"    
+    - ROS_DISTRO="melodic"
 
 install:
   - git clone --quiet --depth 1 https://github.com/ros-industrial/industrial_ci.git .ci
+  - pip install --user codecov nose
+
 script:
   - .ci/travis.sh
+
+after_script:
+  - cd mapek_framework/src && nosetests --cover-package=mapek_framework --with-coverage && codecov
+
