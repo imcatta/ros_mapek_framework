@@ -29,12 +29,13 @@ class GroupTestCase(unittest.TestCase):
             managed_system = managed_system_instance
 
         my_group_instance = MyGroup(node_name)
-        mock_init_node.assert_called()
-        mock_spin.assert_not_called()
+        self.assertEqual(mock_init_node.call_count, 1)
+        self.assertEqual(mock_spin.call_count, 0)
         mock_monitor_element.assert_called_with(knowledge_instance, managed_system_instance)
         mock_analyze_element.assert_called_with(knowledge_instance, managed_system_instance)
         mock_plan_element.assert_called_with(knowledge_instance, managed_system_instance)
         mock_execute_element.assert_called_with(knowledge_instance, managed_system_instance)
 
         my_group_instance.spin()
-        mock_spin.assert_called()
+        self.assertEqual(mock_init_node.call_count, 1)
+        self.assertEqual(mock_spin.call_count, 1)
