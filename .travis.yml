@@ -11,7 +11,8 @@ env:
     - ROS_DISTRO="kinetic"
     - ROS_DISTRO="lunar"
     - ROS_DISTRO="melodic"
-    - AFTER_SCRIPT="sh ./coverage.sh"
+    - ROS_DISTRO="melodic"
+      AFTER_SCRIPT="sh ./coverage.sh"
 
 install:
   - git clone --quiet --depth 1 https://github.com/imcatta/industrial_ci .ci
