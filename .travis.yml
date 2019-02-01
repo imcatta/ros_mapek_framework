@@ -11,7 +11,7 @@ env:
       cd /tmp &&
       nosetests --cover-package=mapek_framework --with-coverage --cover-xml --cover-xml-file /tmp/a.xml $TARGET_REPO_PATH/mapek_framework/src &&
       cd $TARGET_REPO_PATH &&
-      codecov -f /tmp/a.xml -t ${CODECOV_TOKEN}'
+      codecov -f /tmp/a.xml -t $CODECOV_TOKEN'
   matrix:
     - ROS_DISTRO="indigo"
     - ROS_DISTRO="kinetic"
@@ -19,7 +19,7 @@ env:
     - ROS_DISTRO="melodic"
 
 install:
-  - git clone --quiet --depth 1 https://github.com/ros-industrial/industrial_ci.git .ci
+  - git clone --quiet --depth 1 https://github.com/imcatta/industrial_ci .ci
 
 script:
   - .ci/travis.sh
