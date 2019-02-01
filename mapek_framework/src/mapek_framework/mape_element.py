@@ -47,7 +47,6 @@ class _MapeElement(object):
             This method is not supposed to be called explicitly.
             The :class:`~mapek_framework.group.Group` class will do that for you.
         """
-        pass
 
     def send_interaction(self, interaction, payload):
         """Send a message using an `output_interaction`."""
