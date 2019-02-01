@@ -5,18 +5,13 @@ dist: xenial
 services:
   - docker
 
-env:
-  global:
-    - AFTER_SCRIPT='pip install codecov nose &&
-      cd /tmp &&
-      nosetests --cover-package=mapek_framework --with-coverage --cover-xml --cover-xml-file /tmp/a.xml $TARGET_REPO_PATH/mapek_framework/src &&
-      cd $TARGET_REPO_PATH &&
-      codecov -f /tmp/a.xml -t $CODECOV_TOKEN'
+env:    
   matrix:
     - ROS_DISTRO="indigo"
     - ROS_DISTRO="kinetic"
     - ROS_DISTRO="lunar"
     - ROS_DISTRO="melodic"
+    - AFTER_SCRIPT="sh ./coverage.sh"
 
 install:
   - git clone --quiet --depth 1 https://github.com/imcatta/industrial_ci .ci
