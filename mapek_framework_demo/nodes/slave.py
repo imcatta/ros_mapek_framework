@@ -3,7 +3,9 @@ import random
 import sys
 import rospy
 from std_msgs.msg import Empty, String
-from mapek_framework import Group, MonitorElement, ExecuteElement, ManagedSystem, Interaction
+from mapek_framework import Group, ManagedSystem, Interaction
+from mapek_framework.components import MonitorComponent, ExecuteComponent
+
 
 class LightPoleMS(ManagedSystem):
 
@@ -19,13 +21,14 @@ class LightPoleMS(ManagedSystem):
         else:
             rospy.loginfo('BROKEN')
 
-    def turn_off(self):       
+    def turn_off(self):
         if self.working:
             rospy.loginfo('OFF')
         else:
             rospy.loginfo('BROKEN')
 
-class MyMonitorElement(MonitorElement):
+
+class MyMonitorComponent(MonitorComponent):
 
     input_interactions = [
         Interaction('tick', Empty)
@@ -36,14 +39,16 @@ class MyMonitorElement(MonitorElement):
 
     def on_interaction_received(self, interaction, payload):
         status = 'ok' if self.managed_system.is_working() else 'ko'
-        self.send_interaction('light_status', '%s %s' % (self.knowledge['group_name'], status))
+        self.send_interaction('light_status', '%s %s' %
+                              (self.knowledge['group_name'], status))
 
-class MyExecuteElement(ExecuteElement):
+
+class MyExecuteComponent(ExecuteComponent):
 
     input_interactions = [
         Interaction('switch_light', String)
     ]
-    
+
     def on_interaction_received(self, interaction, payload):
         light, status = payload.data.split(' ')
         if light == str(self.knowledge['group_name']):
@@ -54,12 +59,13 @@ class MyExecuteElement(ExecuteElement):
 
 
 class SlaveGroup(Group):
-    elements = [MyMonitorElement, MyExecuteElement]
+    elements = [MyMonitorComponent, MyExecuteComponent]
     managed_system = LightPoleMS()
 
     def __init__(self, group_name, node_name, **kwargs):
         super(SlaveGroup, self).__init__(node_name, **kwargs)
         self.knowledge['group_name'] = group_name
+
 
 def main():
     name = rospy.myargv(argv=sys.argv)[1]

@@ -1,9 +1,11 @@
 #!/usr/bin/env python
 import rospy
 from std_msgs.msg import String
-from mapek_framework import Group, AnalyzeElement, PlanElement, Interaction
+from mapek_framework import Group, Interaction
+from mapek_framework.components import AnalyzeComponent, PlanComponent
 
-class MyAnalyzeElement(AnalyzeElement):
+
+class MyAnalyzeComponent(AnalyzeComponent):
 
     input_interactions = [
         Interaction('light_status', String)
@@ -14,10 +16,11 @@ class MyAnalyzeElement(AnalyzeElement):
 
     def on_interaction_received(self, interaction, payload):
         light, status = payload.data.split(' ')
-        self.knowledge[int(light)] = status  
+        self.knowledge[int(light)] = status
         self.send_interaction('master_analyze_plan', light)
 
-class MyPlanElement(PlanElement):
+
+class MyPlanComponent(PlanComponent):
 
     input_interactions = [
         Interaction('master_analyze_plan', String)
@@ -37,12 +40,13 @@ class MyPlanElement(PlanElement):
 
 
 class MasterGroup(Group):
-    elements = [MyAnalyzeElement, MyPlanElement]
-    
+    elements = [MyAnalyzeComponent, MyPlanComponent]
+
 
 def main():
     master = MasterGroup('master')
     master.spin()
+
 
 if __name__ == '__main__':
     try:

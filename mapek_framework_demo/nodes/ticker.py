@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-from mapek_framework import Ticker
+from mapek_framework.utils import Ticker
 
 def main():
     ticker = Ticker('ticker', 'tick', 0.2)
