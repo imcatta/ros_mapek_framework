@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-mape_element.py
+mape_components.py
 ---------------
 """
 from abc import ABCMeta, abstractmethod
@@ -8,9 +8,9 @@ import rospy
 from .interaction import Interaction
 
 
-class _MapeElement(object):
+class _MapeComponent(object):
     """
-    Abstract class that rappresents a generic mape element.
+    Abstract class that rappresents a generic mape component.
 
     Warning:
         This class or any subclasses of this class are not supposed to be instantiated explicitly.
@@ -20,10 +20,10 @@ class _MapeElement(object):
     __metaclass__ = ABCMeta
 
     input_interactions = []
-    """Element's input interactions"""
+    """Component's input interactions."""
 
     output_interactions = []
-    """Element's output interactions"""
+    """Component's output interactions."""
 
     def __init__(self, knowledge, managed_system):
         self.knowledge = knowledge
@@ -41,7 +41,7 @@ class _MapeElement(object):
     @abstractmethod
     def on_interaction_received(self, interaction, payload):
         """
-        Override this method to implement the element logic.
+        Override this method to implement the component logic.
 
         Warning:
             This method is not supposed to be called explicitly.
@@ -53,21 +53,21 @@ class _MapeElement(object):
         self.output_topics[interaction].publish(payload)
 
 
-class MonitorElement(_MapeElement):
-    """Class that rappresents a Monitor element."""
+class MonitorComponent(_MapeComponent):
+    """Class that rappresents a Monitor component."""
     pass
 
 
-class AnalyzeElement(_MapeElement):
-    """Class that rappresents an Analyze element."""
+class AnalyzeComponent(_MapeComponent):
+    """Class that rappresents an Analyze component."""
     pass
 
 
-class PlanElement(_MapeElement):
-    """Class that rappresents a Plan element."""
+class PlanComponent(_MapeComponent):
+    """Class that rappresents a Plan component."""
     pass
 
 
-class ExecuteElement(_MapeElement):
-    """Class that rappresents an Execute element."""
+class ExecuteComponent(_MapeComponent):
+    """Class that rappresents an Execute component."""
     pass
