@@ -1,9 +1,9 @@
 import unittest
 import mock
-from mapek_framework import Ticker
+from mapek_framework.utils import Ticker
 
 
-class TickerTestCase(unittest.TestCase):
+class UtilsTestCase(unittest.TestCase):
 
     def test_ticker_init(self):
         node_name = 'foo_name'
